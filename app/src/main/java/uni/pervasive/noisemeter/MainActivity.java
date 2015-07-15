@@ -32,7 +32,6 @@ import java.util.Random;
 
 import android.util.Log;
 
-
 public class MainActivity extends Activity {
 
     private PendingIntent pendingIntent;
