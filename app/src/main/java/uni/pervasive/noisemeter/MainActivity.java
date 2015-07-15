@@ -78,13 +78,6 @@ public class MainActivity extends Activity {
 
         manager = (AlarmManager)getSystemService(Context.ALARM_SERVICE);
 
-        //Initial battery usage
-        int level = batteryStatus.getIntExtra(BatteryManager.EXTRA_LEVEL, -1);
-        int scale = batteryStatus.getIntExtra(BatteryManager.EXTRA_SCALE, -1);
-        int batteryPct = level * 100 / scale;
-        initialBattery = batteryPct;
-        txtBattery.setText(String.valueOf(batteryPct) + "%");
-
         txtAmpli.setText("Recording");
 
         manager.set(0, System.currentTimeMillis(), pendingIntent);
@@ -166,6 +159,13 @@ public class MainActivity extends Activity {
 
         txtAmpli = (TextView)findViewById(R.id.txtAmpli);
         txtBattery = (TextView)findViewById(R.id.txtBattery);
+
+        //Initial battery usage
+        int level = batteryStatus.getIntExtra(BatteryManager.EXTRA_LEVEL, -1);
+        int scale = batteryStatus.getIntExtra(BatteryManager.EXTRA_SCALE, -1);
+        int batteryPct = level * 100 / scale;
+        initialBattery = batteryPct;
+        txtBattery.setText(String.valueOf(batteryPct) + "%");
 
         txtMatricula = (EditText)findViewById(R.id.txtMatricula);
         txtMatricula.addTextChangedListener(new TextWatcher(){
