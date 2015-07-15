@@ -10,8 +10,8 @@
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Start"
-        android:id="@+id/btnStart"
+        android:text="Query"
+        android:id="@+id/btnQuery"
         android:background="#ff050fcd"
         android:textColor="#ffffffff"
         android:onClick="startAlarm"
@@ -68,19 +68,5 @@
         android:text="Write Room"
         android:layout_below="@+id/txtMatricula"
         android:layout_centerHorizontal="true" />
-
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Check stats -->"
-        android:id="@+id/btnStats"
-        android:background="#ff050fcd"
-        android:textColor="#ffffffff"
-        android:onClick="startAlarm"
-        android:layout_alignParentBottom="true"
-        android:layout_alignRight="@+id/btnStop"
-        android:layout_alignEnd="@+id/btnStop"
-        android:layout_alignLeft="@+id/btnStart"
-        android:layout_alignStart="@+id/btnStart" />
 
 </RelativeLayout>

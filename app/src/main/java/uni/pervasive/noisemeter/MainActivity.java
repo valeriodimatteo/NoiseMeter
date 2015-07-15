@@ -39,6 +39,7 @@ public class MainActivity extends Activity {
     private AlarmManager manager;
 
     private Intent batteryStatus;
+    private Button btnStats;
     private Button btnStart;
     private Button btnStop;
     private TextView txtBattery;
@@ -87,12 +88,6 @@ public class MainActivity extends Activity {
             public void run() {
                 //HERE query DB and check if number of students is different. If it is, update noiseInterval from MainActivity and call editAlarm()
                 if(btnStop.isEnabled()){
-                    /*Random r = new Random();                //just a random number to test
-                    int randomn = r.nextInt(10);
-                    setNoiseInterval(randomn);
-                    startAlarm(view);
-                    txtNum.setText(randomn);*/
-
                     //actual query of ParseCloud
                     HashMap<String, Object> params = new HashMap<String, Object>();
                     params.put("getClassroom", classroom);
@@ -143,6 +138,14 @@ public class MainActivity extends Activity {
         // Enable Local Datastore.
         Parse.enableLocalDatastore(this);
         Parse.initialize(this, "gjDmHU8kCWGxlmcJP97iCfDWXrH5zxtBZRC8kDMM", "chkyio09frhtLJ5stTAdsLVCwhEsxiwd7mV6faDP");
+
+        btnStats = (Button)findViewById(R.id.btnStats);
+        btnStats.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                setContentView(R.layout.stats_activity);
+            }
+        });
 
         // Retrieve a PendingIntent that will perform a broadcast
         Intent alarmIntent = new Intent(this, AlarmReceiver.class);
