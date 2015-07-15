@@ -13,7 +13,6 @@
         android:layout_height="match_parent"
         android:layout_centerHorizontal="true"
         android:gravity="center_horizontal"
-
         android:weightSum="1">
 
         <TextView
@@ -80,27 +79,33 @@
                 android:layout_weight=".33"
                 android:layout_height="84dp"
                 android:layout_width="0dp"
-                android:text="Student Avg Attendance"
+                android:text="Student Avg Attend."
                 android:id="@+id/button2"
                 android:onClick="studentAverageAttendance"
+                android:gravity="center_horizontal"
                 />
 
             <Button
                 android:layout_weight=".33"
                 android:layout_height="84dp"
                 android:layout_width="0dp"
-                android:text="Course Avg Rating"
-                android:id="@+id/button5"
-                android:onClick="courseAverageRating"
+                android:text="Student Course Attend."
+                android:id="@+id/button"
+                android:onClick="studentCourseAttendance"
+                android:gravity="center_horizontal"
                 />
+
+
             <Button
                 android:layout_weight=".33"
                 android:layout_height="84dp"
                 android:layout_width="0dp"
-                android:text="Prof Avg Rating"
-                android:id="@+id/button6"
-                android:onClick="professorAverageRating"
-                />
+                android:text="Prof Attend."
+                android:id="@+id/button4"
+                android:gravity="center_horizontal"
+                android:onClick="professorAverageAttendance"/>
+
+
 
 
         </LinearLayout>
@@ -117,26 +122,30 @@
                 android:layout_weight=".33"
                 android:layout_height="84dp"
                 android:layout_width="0dp"
-                android:text="Student Course Attendance"
-                android:id="@+id/button"
-                android:onClick="studentCourseAttendance"
-                />
-
-            <Button
-                android:layout_weight=".33"
-                android:layout_height="84dp"
-                android:layout_width="0dp"
-                android:text="Course Attendance"
+                android:text="Course Attend."
                 android:id="@+id/button3"
+                android:gravity="center_horizontal"
                 android:onClick="courseAverageAttendance"/>
 
             <Button
                 android:layout_weight=".33"
                 android:layout_height="84dp"
                 android:layout_width="0dp"
-                android:text="Prof Attendance"
-                android:id="@+id/button4"
-                android:onClick="professorAverageAttendance"/>
+                android:text="Course Avg Rating"
+                android:id="@+id/button5"
+                android:onClick="courseAverageRating"
+                android:gravity="center_horizontal"
+                />
+
+            <Button
+                android:layout_weight=".33"
+                android:layout_height="84dp"
+                android:layout_width="0dp"
+                android:text="Prof Avg Rating"
+                android:id="@+id/button6"
+                android:onClick="professorAverageRating"
+                android:gravity="center_horizontal"
+                />
 
         </LinearLayout>
 
