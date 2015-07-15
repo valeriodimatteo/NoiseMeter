@@ -76,7 +76,7 @@
         android:id="@+id/btnStats"
         android:background="#ff050fcd"
         android:textColor="#ffffffff"
-        android:onClick="startAlarm"
+        android:onClick="startStatsActivity"
         android:layout_alignParentBottom="true"
         android:layout_alignRight="@+id/btnStop"
         android:layout_alignEnd="@+id/btnStop"

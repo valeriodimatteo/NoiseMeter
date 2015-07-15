@@ -86,7 +86,7 @@ public class MainActivity extends Activity {
             @Override
             public void run() {
                 //HERE query DB and check if number of students is different. If it is, update noiseInterval from MainActivity and call editAlarm()
-                if(btnStop.isEnabled()){
+                if (btnStop.isEnabled()) {
                     //actual query of ParseCloud
                     HashMap<String, Object> params = new HashMap<String, Object>();
                     params.put("getClassroom", classroom);
@@ -138,13 +138,6 @@ public class MainActivity extends Activity {
         Parse.enableLocalDatastore(this);
         Parse.initialize(this, "gjDmHU8kCWGxlmcJP97iCfDWXrH5zxtBZRC8kDMM", "chkyio09frhtLJ5stTAdsLVCwhEsxiwd7mV6faDP");
 
-        btnStats = (Button)findViewById(R.id.btnStats);
-        btnStats.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                setContentView(R.layout.stats_activity);
-            }
-        });
 
         // Retrieve a PendingIntent that will perform a broadcast
         Intent alarmIntent = new Intent(this, AlarmReceiver.class);
@@ -190,5 +183,11 @@ public class MainActivity extends Activity {
         String deviceName = android.os.Build.MODEL;
         String deviceMan = android.os.Build.MANUFACTURER;
         phoneModel = deviceMan+" "+deviceName;
+    }
+
+
+    public void startStatsActivity(View v){
+        Intent myIntent = new Intent(v.getContext(),StatsActivity.class);
+        startActivity(myIntent);
     }
 }
