@@ -149,7 +149,7 @@ public class StatsActivity extends Activity {
         ParseCloud.callFunctionInBackground("averageProfScore", params, new FunctionCallback<String>() {
             public void done(String percentage, com.parse.ParseException e) {
                 if (e == null) {
-                    result.setText(percentage + "%");
+                    result.setText(percentage);
                 } else {
                     result.setText("Error");
                 }
@@ -175,7 +175,7 @@ public class StatsActivity extends Activity {
         ParseCloud.callFunctionInBackground("averageCourseScore", params, new FunctionCallback<String>() {
             public void done(String percentage, com.parse.ParseException e) {
                 if (e == null) {
-                    result.setText(percentage + "%");
+                    result.setText(percentage);
                 } else {
                     result.setText("Error");
                 }
