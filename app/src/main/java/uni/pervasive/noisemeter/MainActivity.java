@@ -6,10 +6,6 @@ import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.hardware.Sensor;
-import android.hardware.SensorEvent;
-import android.hardware.SensorEventListener;
-import android.hardware.SensorManager;
 import android.os.BatteryManager;
 import android.os.Bundle;
 import android.text.Editable;
@@ -18,18 +14,12 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.view.View.OnClickListener;
 
 import com.parse.FunctionCallback;
 import com.parse.Parse;
 import com.parse.ParseCloud;
 
-import java.text.ParseException;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
-import java.util.Random;
-
 import android.util.Log;
 
 public class MainActivity extends Activity {
@@ -45,10 +35,9 @@ public class MainActivity extends Activity {
     private TextView txtAmpli;
     private EditText txtMatricula;
     private EditText txtClassroom;
-    private static String matricula = "1234567";               //should be received by the login module
-    private static String classroom = "A7";                         //should be received by the localiation module
-    private static int noiseInterval=10000;    //600,000 milliseconds = 10 minutes between each recording
-    private static final int noiseLength = 5000;        //5,000 milliseconds = 5 seconds of noise recording
+    private static String matricula = "1234567";    //should be received by the login module
+    private static String classroom = "A7";         //should be received by the localiation module
+    private static int noiseInterval=10000;         //interval (ms) between each recording
     private int initialBattery;
     private static String phoneModel;
 
@@ -64,12 +53,15 @@ public class MainActivity extends Activity {
         return phoneModel;
     }
 
+    //function to change interval between recordings, to be called after each of them and depending
+    // on number of students in the classroom (query to Parse)
     public static void setNoiseInterval(int n){
         noiseInterval = (n + 10)*1000;
         Log.e("NoiseMeter","New interval = "+noiseInterval/1000+" seconds");
 
     }
 
+    //function that manages the "alarm" that fires the recording activity
     public void startAlarm(final View view) {
         Log.e("NoiseMeter","Starting alarm, interval = " + noiseInterval/1000 + " seconds");
 
@@ -77,17 +69,20 @@ public class MainActivity extends Activity {
         btnStop.setEnabled(true);
 
         manager = (AlarmManager)getSystemService(Context.ALARM_SERVICE);
-
         txtAmpli.setText("Recording");
 
+        //manager starts the activity immediately
         manager.set(0, System.currentTimeMillis(), pendingIntent);
         android.os.Handler handler = new android.os.Handler();
+
+        //intrsuctions to be executed after time equal to noiseInterval,
+        //to start a new recording if needed
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
-                //HERE query DB and check if number of students is different. If it is, update noiseInterval from MainActivity and call editAlarm()
+                //query DB for the number of students in the classroom and start a new recording
+                // with a new time interval that depends on query result
                 if (btnStop.isEnabled()) {
-                    //actual query of ParseCloud
                     HashMap<String, Object> params = new HashMap<String, Object>();
                     params.put("getClassroom", classroom);
                     ParseCloud.callFunctionInBackground("getStudentsNumber", params, new FunctionCallback<Integer>() {
@@ -99,12 +94,12 @@ public class MainActivity extends Activity {
                             }
                         }
                     });
-
                 }
             }
         }, noiseInterval);
     }
 
+    //function to be called when the recording activity is stopped
     public void cancelAlarm(View view) {
 
         btnStart.setEnabled(true);
@@ -118,10 +113,12 @@ public class MainActivity extends Activity {
         int batteryPct = level * 100 / scale;
         txtBattery.setText(String.valueOf(batteryPct) + "%");
 
+        //save battery value
         queryDB.putBattery(classroom, matricula, initialBattery, batteryPct);
 
         txtAmpli.setText("Stopped");
 
+        //Cancel intent
         Intent alarmIntent = new Intent(this, AlarmReceiver.class);
         pendingIntent = PendingIntent.getBroadcast(this, 0, alarmIntent, 0);
         manager = (AlarmManager)getSystemService(Context.ALARM_SERVICE);
@@ -137,7 +134,6 @@ public class MainActivity extends Activity {
         // Enable Local Datastore.
         Parse.enableLocalDatastore(this);
         Parse.initialize(this, "gjDmHU8kCWGxlmcJP97iCfDWXrH5zxtBZRC8kDMM", "chkyio09frhtLJ5stTAdsLVCwhEsxiwd7mV6faDP");
-
 
         // Retrieve a PendingIntent that will perform a broadcast
         Intent alarmIntent = new Intent(this, AlarmReceiver.class);
@@ -162,6 +158,8 @@ public class MainActivity extends Activity {
         initialBattery = batteryPct;
         txtBattery.setText(String.valueOf(batteryPct) + "%");
 
+        //temporary variable that sets the matricula
+        //should be managed by the log-in module
         txtMatricula = (EditText)findViewById(R.id.txtMatricula);
         txtMatricula.addTextChangedListener(new TextWatcher(){
             public void afterTextChanged(Editable s) {
@@ -171,6 +169,8 @@ public class MainActivity extends Activity {
             public void onTextChanged(CharSequence s, int start, int before, int count){}
         });
 
+        //temporary variable that sets the classroom
+        //should be managed by the beacon detection module
         txtClassroom = (EditText)findViewById(R.id.txtClassroom);
         txtClassroom.addTextChangedListener(new TextWatcher(){
             public void afterTextChanged(Editable s) {
@@ -180,12 +180,13 @@ public class MainActivity extends Activity {
             public void onTextChanged(CharSequence s, int start, int before, int count){}
         });
 
+        //sve device name and module
         String deviceName = android.os.Build.MODEL;
         String deviceMan = android.os.Build.MANUFACTURER;
         phoneModel = deviceMan+" "+deviceName;
     }
 
-
+    //Activity for stats visualization
     public void startStatsActivity(View v){
         Intent myIntent = new Intent(v.getContext(),StatsActivity.class);
         startActivity(myIntent);

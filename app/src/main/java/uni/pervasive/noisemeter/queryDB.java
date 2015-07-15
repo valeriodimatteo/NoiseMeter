@@ -4,6 +4,9 @@ import com.parse.ParseObject;
 
 /**
  * Created by Valerio on 15/05/2015.
+ *
+ * Container of functions that connect to the DB for better modularity.
+ * If we decide to change database and quit Parse, we don't need to change other modules.
  */
 public class queryDB {
 
@@ -21,7 +24,7 @@ public class queryDB {
         noise.put("Matricula", matricula);
         noise.put("Decibel", decibel);
         noise.put("Model",model);
-        noise.saveEventually();           //sends object to the Noise db in Parse
+        noise.saveEventually();
     }
 
     public static void putTemperature(String classroom, String matricula, int temperature){

@@ -2,6 +2,8 @@ package uni.pervasive.noisemeter;
 
 /**
  * Created by Valerio on 13/05/2015.
+ *
+ * Alarm Receiver activity that handles the recording.
  */
 
 import android.content.BroadcastReceiver;
@@ -10,20 +12,20 @@ import android.content.Intent;
 import android.media.MediaRecorder;
 import android.util.Log;
 
-import com.parse.ParseObject;
-
 import java.io.IOException;
 
 public class AlarmReceiver extends BroadcastReceiver {
 
     private static MediaRecorder mRecorder = null;
-    private static final int noiseLength = 5000;        //5,000 milliseconds = 5 seconds of noise recording
+    private static final int noiseLength = 5000;        //recording length in milliseconds
     private static final String LOG_TAG = "NoiseMeter";
 
+    //alarm receiver: instructions to be executed as the alarm fires
     @Override
     public void onReceive(Context arg0, Intent arg1) {
         Log.e(LOG_TAG, "STARTING " + MainActivity.getPhoneModel());
 
+        //set a mediarecorder
         if (mRecorder == null)
             mRecorder = new MediaRecorder();
         else {
@@ -40,8 +42,11 @@ public class AlarmReceiver extends BroadcastReceiver {
         } catch (IOException e) {
             Log.e(LOG_TAG, "prepare() failed");
         }
+
+        //start the recording
         mRecorder.start();
-        mRecorder.getMaxAmplitude();    //Initializing it, because always returns 0 the first time it's called
+        //Initialize the result, because it always returns 0 the first time it's called
+        mRecorder.getMaxAmplitude();
 
         //detect the value now
         android.os.Handler handler = new android.os.Handler();
@@ -51,9 +56,10 @@ public class AlarmReceiver extends BroadcastReceiver {
                 if (mRecorder!=null)
                     getAmplitude();
             }
-        }, noiseLength);        //noiseLength is the delay after which the value is detetcted*/
+        }, noiseLength);        //noiseLength is the delay after which the value is detected
     }
 
+    //function to be called when the recording is stopped
     public static void stop() {
         if (mRecorder != null) {
             try {
@@ -66,6 +72,7 @@ public class AlarmReceiver extends BroadcastReceiver {
         }
     }
 
+    //function that computes the decibel after the recording is finished
     public void getAmplitude(){
         Log.e(LOG_TAG, "Getting MaxAmplitude");
         if (mRecorder != null) {
@@ -77,8 +84,12 @@ public class AlarmReceiver extends BroadcastReceiver {
             }
             mRecorder.release();
             mRecorder = null;
-            double decibel = 20*Math.log10(amplitude/0.9);      //0.9 found by testing with other apps. Varied between 0.85 and 0.95 more or less
-            sendValue((int) decibel);
+
+            //Compute decibels
+            //0.9 factor found by testing with other apps
+            //Varied between 0.85 and 0.95 more or less
+            double decibel = 20*Math.log10(amplitude/0.9);
+            sendValue((int) decibel);   //send value to Parse
         }
     }
 
