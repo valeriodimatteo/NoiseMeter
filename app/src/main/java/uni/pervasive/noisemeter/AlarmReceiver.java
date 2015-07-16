@@ -17,7 +17,7 @@ import java.io.IOException;
 public class AlarmReceiver extends BroadcastReceiver {
 
     private static MediaRecorder mRecorder = null;
-    private static final int noiseLength = 5000;        //recording length in milliseconds
+    private static final int noiseLength = 5000; //recording length in milliseconds
     private static final String LOG_TAG = "NoiseMeter";
 
     //alarm receiver: instructions to be executed as the alarm fires
@@ -26,8 +26,7 @@ public class AlarmReceiver extends BroadcastReceiver {
         Log.e(LOG_TAG, "STARTING " + MainActivity.getPhoneModel());
 
         //set a mediarecorder
-        if (mRecorder == null)
-            mRecorder = new MediaRecorder();
+        if (mRecorder == null) mRecorder = new MediaRecorder();
         else {
             mRecorder.release();
             mRecorder = new MediaRecorder();
@@ -50,13 +49,11 @@ public class AlarmReceiver extends BroadcastReceiver {
 
         //detect the value now
         android.os.Handler handler = new android.os.Handler();
-        handler.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                if (mRecorder!=null)
-                    getAmplitude();
-            }
-        }, noiseLength);        //noiseLength is the delay after which the value is detected
+        handler.postDelayed(new Runnable() {@Override
+                                            public void run() {
+            if (mRecorder != null) getAmplitude();
+        }
+        }, noiseLength); //noiseLength is the delay after which the value is detected
     }
 
     //function to be called when the recording is stopped
@@ -73,7 +70,7 @@ public class AlarmReceiver extends BroadcastReceiver {
     }
 
     //function that computes the decibel after the recording is finished
-    public void getAmplitude(){
+    public void getAmplitude() {
         Log.e(LOG_TAG, "Getting MaxAmplitude");
         if (mRecorder != null) {
             double amplitude = mRecorder.getMaxAmplitude();
@@ -88,13 +85,13 @@ public class AlarmReceiver extends BroadcastReceiver {
             //Compute decibels
             //0.9 factor found by testing with other apps
             //Varied between 0.85 and 0.95 more or less
-            double decibel = 20*Math.log10(amplitude/0.9);
-            sendValue((int) decibel);   //send value to Parse
+            double decibel = 20 * Math.log10(amplitude / 0.9);
+            sendValue((int) decibel); //send value to Parse
         }
     }
 
-    public void sendValue(int decibel){
-       queryDB.putDecibel(MainActivity.getClassroom(), MainActivity.getMatricula(), decibel, MainActivity.getPhoneModel());
+    public void sendValue(int decibel) {
+        queryDB.putDecibel(MainActivity.getClassroom(), MainActivity.getMatricula(), decibel, MainActivity.getPhoneModel());
     }
 
 }

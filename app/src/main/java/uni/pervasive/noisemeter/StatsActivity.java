@@ -12,7 +12,7 @@ import java.util.HashMap;
 public class StatsActivity extends Activity {
 
     //******variables*********
-    EditText studText,classText,professorText;
+    EditText studText, classText, professorText;
     TextView result;
     private View v;
 
@@ -22,8 +22,8 @@ public class StatsActivity extends Activity {
         setContentView(R.layout.activity_stats);
     }
 
-    public void studentCourseAttendance(View v){
-        String student,lesson,professor;
+    public void studentCourseAttendance(View v) {
+        String student, lesson, professor;
 
         //pick values from view
         studText = (EditText) findViewById(R.id.studentEditText);
@@ -36,15 +36,15 @@ public class StatsActivity extends Activity {
 
         result = (TextView) findViewById(R.id.result);
 
-        HashMap<String, Object> params = new HashMap<String, Object>();
+        HashMap < String, Object > params = new HashMap < String, Object > ();
         params.put("student", student);
         params.put("lesson", lesson);
         params.put("professor", professor);
 
-        ParseCloud.callFunctionInBackground("sCa", params, new FunctionCallback<String>() {
+        ParseCloud.callFunctionInBackground("studentCourseAttendance", params, new FunctionCallback < String > () {
             public void done(String percentage, com.parse.ParseException e) {
                 if (e == null) {
-                    result.setText(percentage+ "%");
+                    result.setText(percentage + "%");
                 } else {
                     result.setText("Error");
                 }
@@ -54,7 +54,7 @@ public class StatsActivity extends Activity {
 
     }
 
-    public void studentAverageAttendance(View v){
+    public void studentAverageAttendance(View v) {
         String student;
 
         studText = (EditText) findViewById(R.id.studentEditText);
@@ -62,63 +62,11 @@ public class StatsActivity extends Activity {
         result = (TextView) findViewById(R.id.result);
 
 
-        HashMap<String, Object> params = new HashMap<String, Object>();
+        HashMap < String, Object > params = new HashMap < String, Object > ();
         params.put("student", student);
 
 
-        ParseCloud.callFunctionInBackground("sAa", params, new FunctionCallback<String>() {
-            public void done(String percentage, com.parse.ParseException e) {
-                if (e == null) {
-                    result.setText(percentage+ "%");
-                } else {
-                    result.setText("Error");
-                }
-            }
-        });
-
-    }
-
-    public void courseAverageAttendance(View v){
-        String lesson,professor;
-
-        //pick values from view
-        classText = (EditText) findViewById(R.id.lessonEditText);
-        professorText = (EditText) findViewById(R.id.professorEditText);
-
-        lesson = classText.getText().toString();
-        professor = professorText.getText().toString();
-
-        result = (TextView) findViewById(R.id.result);
-
-        HashMap<String, Object> params = new HashMap<String, Object>();
-        params.put("lesson", lesson);
-        params.put("professor", professor);
-
-        ParseCloud.callFunctionInBackground("cAa", params, new FunctionCallback<String>() {
-            public void done(String percentage, com.parse.ParseException e) {
-                if (e == null) {
-                    result.setText(percentage+ "%");
-                } else {
-                    result.setText("Error");
-                }
-            }
-        });
-    }
-
-    public void professorAverageAttendance(View v){
-
-        String professor;
-
-        //pick values from view
-        professorText = (EditText) findViewById(R.id.professorEditText);
-        professor = professorText.getText().toString();
-
-        result = (TextView) findViewById(R.id.result);
-
-        HashMap<String, Object> params = new HashMap<String, Object>();
-        params.put("professor", professor);
-
-        ParseCloud.callFunctionInBackground("pAa", params, new FunctionCallback<String>() {
+        ParseCloud.callFunctionInBackground("studentAverageAttendance", params, new FunctionCallback < String > () {
             public void done(String percentage, com.parse.ParseException e) {
                 if (e == null) {
                     result.setText(percentage + "%");
@@ -130,7 +78,34 @@ public class StatsActivity extends Activity {
 
     }
 
-    public void professorAverageRating(View v){
+    public void courseAverageAttendance(View v) {
+        String lesson, professor;
+
+        //pick values from view
+        classText = (EditText) findViewById(R.id.lessonEditText);
+        professorText = (EditText) findViewById(R.id.professorEditText);
+
+        lesson = classText.getText().toString();
+        professor = professorText.getText().toString();
+
+        result = (TextView) findViewById(R.id.result);
+
+        HashMap < String, Object > params = new HashMap < String, Object > ();
+        params.put("lesson", lesson);
+        params.put("professor", professor);
+
+        ParseCloud.callFunctionInBackground("courseAverageAttendance", params, new FunctionCallback < String > () {
+            public void done(String percentage, com.parse.ParseException e) {
+                if (e == null) {
+                    result.setText(percentage + "%");
+                } else {
+                    result.setText("Error");
+                }
+            }
+        });
+    }
+
+    public void professorAverageAttendance(View v) {
 
         String professor;
 
@@ -140,13 +115,38 @@ public class StatsActivity extends Activity {
 
         result = (TextView) findViewById(R.id.result);
 
-        HashMap<String, Object> params = new HashMap<String, Object>();
-        params.put("name", professor);
-        params.put("until","");
-        params.put("from","");
-        params.put("score","");
+        HashMap < String, Object > params = new HashMap < String, Object > ();
+        params.put("professor", professor);
 
-        ParseCloud.callFunctionInBackground("averageProfScore", params, new FunctionCallback<String>() {
+        ParseCloud.callFunctionInBackground("professorAverageAttendance", params, new FunctionCallback < String > () {
+            public void done(String percentage, com.parse.ParseException e) {
+                if (e == null) {
+                    result.setText(percentage + "%");
+                } else {
+                    result.setText("Error");
+                }
+            }
+        });
+
+    }
+
+    public void professorAverageRating(View v) {
+
+        String professor;
+
+        //pick values from view
+        professorText = (EditText) findViewById(R.id.professorEditText);
+        professor = professorText.getText().toString();
+
+        result = (TextView) findViewById(R.id.result);
+
+        HashMap < String, Object > params = new HashMap < String, Object > ();
+        params.put("name", professor);
+        params.put("until", "");
+        params.put("from", "");
+        params.put("score", "");
+
+        ParseCloud.callFunctionInBackground("averageProfScore", params, new FunctionCallback < String > () {
             public void done(String percentage, com.parse.ParseException e) {
                 if (e == null) {
                     result.setText(percentage);
@@ -157,7 +157,7 @@ public class StatsActivity extends Activity {
         });
     }
 
-    public void courseAverageRating(View v){
+    public void courseAverageRating(View v) {
         String course;
 
         //pick values from view
@@ -166,13 +166,13 @@ public class StatsActivity extends Activity {
 
         result = (TextView) findViewById(R.id.result);
 
-        HashMap<String, Object> params = new HashMap<String, Object>();
+        HashMap < String, Object > params = new HashMap < String, Object > ();
         params.put("name", course);
-        params.put("until","");
-        params.put("from","");
-        params.put("score","");
+        params.put("until", "");
+        params.put("from", "");
+        params.put("score", "");
 
-        ParseCloud.callFunctionInBackground("averageCourseScore", params, new FunctionCallback<String>() {
+        ParseCloud.callFunctionInBackground("averageCourseScore", params, new FunctionCallback < String > () {
             public void done(String percentage, com.parse.ParseException e) {
                 if (e == null) {
                     result.setText(percentage);

@@ -26,7 +26,6 @@ public class MainActivity extends Activity {
 
     private PendingIntent pendingIntent;
     private AlarmManager manager;
-
     private Intent batteryStatus;
     private Button btnStats;
     private Button btnStart;
@@ -35,40 +34,40 @@ public class MainActivity extends Activity {
     private TextView txtAmpli;
     private EditText txtMatricula;
     private EditText txtClassroom;
-    private static String matricula = "1234567";    //should be received by the login module
-    private static String classroom = "A7";         //should be received by the localiation module
-    private static int noiseInterval=10000;         //interval (ms) between each recording
+    private static String matricula = "1234567"; //should be received by the login module
+    private static String classroom = "A7"; //should be received by the localiation module
+    private static int noiseInterval = 10000; //interval (ms) between each recording
     private int initialBattery;
     private static String phoneModel;
 
-    public static String getMatricula(){
+    public static String getMatricula() {
         return matricula;
     }
 
-    public static String getClassroom(){
+    public static String getClassroom() {
         return classroom;
     }
 
-    public static String getPhoneModel(){
+    public static String getPhoneModel() {
         return phoneModel;
     }
 
     //function to change interval between recordings, to be called after each of them and depending
     // on number of students in the classroom (query to Parse)
-    public static void setNoiseInterval(int n){
-        noiseInterval = (n + 10)*1000;
-        Log.e("NoiseMeter","New interval = "+noiseInterval/1000+" seconds");
+    public static void setNoiseInterval(int n) {
+        noiseInterval = (n + 10) * 1000;
+        Log.e("NoiseMeter", "New interval = " + noiseInterval / 1000 + " seconds");
 
     }
 
     //function that manages the "alarm" that fires the recording activity
     public void startAlarm(final View view) {
-        Log.e("NoiseMeter","Starting alarm, interval = " + noiseInterval/1000 + " seconds");
+        Log.e("NoiseMeter", "Starting alarm, interval = " + noiseInterval / 1000 + " seconds");
 
         btnStart.setEnabled(false);
         btnStop.setEnabled(true);
 
-        manager = (AlarmManager)getSystemService(Context.ALARM_SERVICE);
+        manager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
         txtAmpli.setText("Recording");
 
         //manager starts the activity immediately
@@ -77,25 +76,23 @@ public class MainActivity extends Activity {
 
         //intrsuctions to be executed after time equal to noiseInterval,
         //to start a new recording if needed
-        handler.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                //query DB for the number of students in the classroom and start a new recording
-                // with a new time interval that depends on query result
-                if (btnStop.isEnabled()) {
-                    HashMap<String, Object> params = new HashMap<String, Object>();
-                    params.put("getClassroom", classroom);
-                    ParseCloud.callFunctionInBackground("getStudentsNumber", params, new FunctionCallback<Integer>() {
-                        @Override
-                        public void done(Integer number, com.parse.ParseException e) {
-                            if (e == null) {
-                                setNoiseInterval(number);
-                                startAlarm(view);
-                            }
-                        }
-                    });
+        handler.postDelayed(new Runnable() {@Override
+                                            public void run() {
+            //query DB for the number of students in the classroom and start a new recording
+            // with a new time interval that depends on query result
+            if (btnStop.isEnabled()) {
+                HashMap < String, Object > params = new HashMap < String, Object > ();
+                params.put("getClassroom", classroom);
+                ParseCloud.callFunctionInBackground("getStudentsNumber", params, new FunctionCallback < Integer > () {@Override
+                                                                                                                      public void done(Integer number, com.parse.ParseException e) {
+                    if (e == null) {
+                        setNoiseInterval(number);
+                        startAlarm(view);
+                    }
                 }
+                });
             }
+        }
         }, noiseInterval);
     }
 
@@ -121,7 +118,7 @@ public class MainActivity extends Activity {
         //Cancel intent
         Intent alarmIntent = new Intent(this, AlarmReceiver.class);
         pendingIntent = PendingIntent.getBroadcast(this, 0, alarmIntent, 0);
-        manager = (AlarmManager)getSystemService(Context.ALARM_SERVICE);
+        manager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
         manager.cancel(pendingIntent);
 
     }
@@ -143,13 +140,13 @@ public class MainActivity extends Activity {
         IntentFilter ifilter = new IntentFilter(Intent.ACTION_BATTERY_CHANGED);
         batteryStatus = context.registerReceiver(null, ifilter);
 
-        btnStart=(Button)findViewById(R.id.btnStart);
-        btnStop=(Button)findViewById(R.id.btnStop);
+        btnStart = (Button) findViewById(R.id.btnStart);
+        btnStop = (Button) findViewById(R.id.btnStop);
 
         btnStop.setEnabled(false);
 
-        txtAmpli = (TextView)findViewById(R.id.txtAmpli);
-        txtBattery = (TextView)findViewById(R.id.txtBattery);
+        txtAmpli = (TextView) findViewById(R.id.txtAmpli);
+        txtBattery = (TextView) findViewById(R.id.txtBattery);
 
         //Initial battery usage
         int level = batteryStatus.getIntExtra(BatteryManager.EXTRA_LEVEL, -1);
@@ -160,35 +157,35 @@ public class MainActivity extends Activity {
 
         //temporary variable that sets the matricula
         //should be managed by the log-in module
-        txtMatricula = (EditText)findViewById(R.id.txtMatricula);
-        txtMatricula.addTextChangedListener(new TextWatcher(){
+        txtMatricula = (EditText) findViewById(R.id.txtMatricula);
+        txtMatricula.addTextChangedListener(new TextWatcher() {
             public void afterTextChanged(Editable s) {
                 matricula = s.toString();
             }
-            public void beforeTextChanged(CharSequence s, int start, int count, int after){}
-            public void onTextChanged(CharSequence s, int start, int before, int count){}
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+            public void onTextChanged(CharSequence s, int start, int before, int count) {}
         });
 
         //temporary variable that sets the classroom
         //should be managed by the beacon detection module
-        txtClassroom = (EditText)findViewById(R.id.txtClassroom);
-        txtClassroom.addTextChangedListener(new TextWatcher(){
+        txtClassroom = (EditText) findViewById(R.id.txtClassroom);
+        txtClassroom.addTextChangedListener(new TextWatcher() {
             public void afterTextChanged(Editable s) {
                 classroom = s.toString();
             }
-            public void beforeTextChanged(CharSequence s, int start, int count, int after){}
-            public void onTextChanged(CharSequence s, int start, int before, int count){}
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+            public void onTextChanged(CharSequence s, int start, int before, int count) {}
         });
 
         //sve device name and module
         String deviceName = android.os.Build.MODEL;
         String deviceMan = android.os.Build.MANUFACTURER;
-        phoneModel = deviceMan+" "+deviceName;
+        phoneModel = deviceMan + " " + deviceName;
     }
 
     //Activity for stats visualization
-    public void startStatsActivity(View v){
-        Intent myIntent = new Intent(v.getContext(),StatsActivity.class);
+    public void startStatsActivity(View v) {
+        Intent myIntent = new Intent(v.getContext(), StatsActivity.class);
         startActivity(myIntent);
     }
 }
