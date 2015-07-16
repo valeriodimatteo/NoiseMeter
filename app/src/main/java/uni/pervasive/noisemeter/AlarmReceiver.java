@@ -42,7 +42,7 @@ public class AlarmReceiver extends BroadcastReceiver {
             Log.e(LOG_TAG, "prepare() failed");
         }
 
-        //start the recording
+        //start  recording
         mRecorder.start();
         //Initialize the result, because it always returns 0 the first time it's called
         mRecorder.getMaxAmplitude();

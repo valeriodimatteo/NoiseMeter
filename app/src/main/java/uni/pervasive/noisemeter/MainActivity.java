@@ -177,7 +177,7 @@ public class MainActivity extends Activity {
             public void onTextChanged(CharSequence s, int start, int before, int count) {}
         });
 
-        //sve device name and module
+        //save device name and module
         String deviceName = android.os.Build.MODEL;
         String deviceMan = android.os.Build.MANUFACTURER;
         phoneModel = deviceMan + " " + deviceName;

@@ -182,13 +182,4 @@ public class StatsActivity extends Activity {
             }
         });
     }
-
-
-
-
-
-
-
-
-
 }

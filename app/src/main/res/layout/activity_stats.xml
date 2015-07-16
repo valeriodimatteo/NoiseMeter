@@ -126,8 +126,8 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Result"
             android:id="@+id/textView3"
+            android:text="Result"
             android:textSize="15dp"
             android:layout_marginTop="5dp"/>
         <TextView
