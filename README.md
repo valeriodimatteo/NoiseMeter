@@ -32,16 +32,22 @@ The Parse CloudCode is called by the app and only returns final values, while th
 
 ##Parse Tables
 - Noise: stores the single decibel values along with matricula, classroom and also phone model (cleaned by a job every 10 minutes).
+![alt tag](http://s24.postimg.org/5zpaoah1x/noise.png)
 
 - NoiseIntervals: stores average and max decibel values, grouping the tuples of Noise every 10 minutes by classroom, and associeting them to professor and course (update by a job every 10 minutes).
+![alt tag](http://s18.postimg.org/u2j9iqh4p/Immagine.png)
 
 - Schedule: stores info about the classes calendar, with dates, times, professors, classrooms and course names.
+![alt tag](http://s14.postimg.org/gvy55z9o1/Immagine.png)
 
 - Student_Enter_Classroom: stores tuples about students entering classrooms at a given time.
+![alt tag](http://s10.postimg.org/6ddpxq5dl/Immagine.png)
 
 - Student_Exit_Classroom: stores tuples about students going out of classrooms at a given time.
+![alt tag](http://s8.postimg.org/cjfuy16ud/Immagine.png)
 
 - Presences: stores tuples about students' atendance to a given course, with number of lectures followed (updated by a job every day).
+![alt tag](http://s8.postimg.org/ffyakknad/Immagine.png)
 
 ##Jobs/Functions
 
