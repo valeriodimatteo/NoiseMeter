@@ -30,6 +30,8 @@ The applications is constituted by 4 modules:
 
 The Parse CloudCode is called by the app and only returns final values, while the whole computation is done at server side with regular jobs or functions executed on demand.
 
+![alt tag](http://s18.postimg.org/7jkspjpyx/Screenshot.png)
+
 ##Parse Tables
 - Noise: stores the single decibel values along with matricula, classroom and also phone model (cleaned by a job every 10 minutes).
 ![alt tag](http://s24.postimg.org/5zpaoah1x/noise.png)
