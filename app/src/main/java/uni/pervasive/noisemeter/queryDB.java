@@ -4,7 +4,7 @@ import com.parse.ParseObject;
 
 /**
  * Created by Valerio on 15/05/2015.
- *
+ * <p/>
  * Container of functions that connect to the DB for better modularity.
  * If we decide to change database and quit Parse, we don't need to change other modules!
  */
@@ -34,4 +34,5 @@ public class queryDB {
         noise.put("Degrees", temperature);
         noise.saveEventually();
     }
+
 }

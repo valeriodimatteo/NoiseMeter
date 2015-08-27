@@ -22,12 +22,21 @@
             </intent-filter>
         </activity>
 
-        <receiver android:name=".AlarmReceiver" />
+        <activity
+            android:name=".StudentStatsActivity"
+            android:label="@string/title_activity_studstats"></activity>
 
         <activity
-            android:name=".StatsActivity"
-            android:label="@string/title_activity_stats" >
+            android:name=".ProfessorStatsActivity"
+            android:label="@string/title_activity_profstats">
         </activity>
+
+        <activity
+            android:name=".CourseStatsActivity"
+            android:label="@string/title_activity_profstats"></activity>
+
+        <receiver android:name=".AlarmReceiver" />
+
     </application>
 
 </manifest>

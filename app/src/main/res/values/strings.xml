@@ -1,7 +1,14 @@
 <resources>
     <string name="app_name">NoiseMeter</string>
-
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
-    <string name="title_activity_stats">StatsActivity</string>
+    <string name="title_activity_studstats">StudentStatsActivity</string>
+    <string name="title_activity_profstats">ProfessorStatsActivity</string>
+    <string name="title_activity_coursestats">CourseStatsActivity</string>
+
+    <string-array name="options_array">
+        <item>Student stats</item>
+        <item>Professor Stats</item>
+        <item>Course Stats</item>
+    </string-array>
 </resources>
