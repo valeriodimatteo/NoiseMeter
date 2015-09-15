@@ -1,5 +1,5 @@
 # NoiseMeter
-Android application for Pervasive System exam, University of La Sapienza, Rome. Spring 2015, http://cclii.dis.uniroma1.it/?q=en/msecs
+Android application developed for the project of the [Pervasive System elective class](http://ru1.cti.gr/~ichatz/index.php/Site/PervasiveSystems), University of La Sapienza, Rome. Spring 2015, http://cclii.dis.uniroma1.it/?q=en/msecs
 
 Valerio Di Matteo
 https://www.linkedin.com/profile/view?id=359456267-
