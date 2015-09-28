@@ -74,7 +74,7 @@ The Parse CloudCode is called by the app and only returns final values, while th
 
 
 #Survey
-Before starting developing the application, feedback from users about different functionalities was needed, that's why we made and distributed a survey to final users (for a total of 40 Sapienza's students).
+Before starting developing the application, feedback from users about different functionalities was needed, that's why we made and distributed a survey to final users (for a total of 40 Sapienza's students). The methodology chosen to distribute the survey was not an online website containing all questions but an in person deliver of the survey to students inside the Sapienza's building. Such a distributing method allowed us to help students understanding the purpose of the project answering to their own questions arised while they were compiling the survey.
 The survey not only was looking to find out what users were thinking about functionalities offered by our application, but also about functionalities offered by parallel projects carried out by other collegues.
 Even if the whole survey will be avaible (file named survey.pdf in the Survey folder) we will only briefly discuss topics related to the Noise Meter application.
 Before starting the developing of an Android application we were interested in how many devices would have support our software (that's what questions 3 and 4 of the survey are looking for). Survey results are presented in the following graphs.
